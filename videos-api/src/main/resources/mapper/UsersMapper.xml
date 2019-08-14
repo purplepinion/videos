@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chrisz.mapper.UsersMapper" >
+
+    <resultMap id="BaseResultMap" type="com.chrisz.pojo.Users" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="face_image" property="faceImage" jdbcType="VARCHAR" />
+        <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+        <result column="fans_counts" property="fansCounts" jdbcType="INTEGER" />
+        <result column="follow_counts" property="followCounts" jdbcType="INTEGER" />
+        <result column="receive_like_counts" property="receiveLikeCounts" jdbcType="INTEGER" />
+    </resultMap>
+
+      <!--用户收到like累加-->
+    <update id="addReceiveLikeCount" parameterType="String">
+        UPDATE users
+        SET receive_like_counts = receive_like_counts + 1
+        WHERE id = #{userId}
+    </update>
+    <!--用户收到like累减-->
+    <update id="reduceReceiveLikeCount" parameterType="String">
+      UPDATE users
+      SET receive_like_counts = receive_like_counts - 1
+      WHERE id = #{userId}
+     </update>
+
+    <!--用户粉丝增加-->
+    <update id="addFansCount" parameterType="String">
+      UPDATE users
+      SET fans_counts = fans_counts + 1
+      WHERE id = #{userId}
+    </update>
+
+    <!--用户粉丝减少-->
+    <update id="reduceFansCount" parameterType="String">
+        UPDATE users
+        SET fans_counts = fans_counts - 1
+        WHERE id = #{userId}
+    </update>
+
+    <!--关注数增加-->
+    <update id="addFollowersCount" parameterType="String">
+        UPDATE users
+        SET follow_counts = follow_counts + 1
+        WHERE id = #{userId}
+    </update>
+
+    <!--关注数减少-->
+    <update id="reduceFollowersCount" parameterType="String">
+        UPDATE users
+        SET follow_counts = follow_counts - 1
+        WHERE id = #{userId}
+    </update>
+
+  
+</mapper>
